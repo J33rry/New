@@ -1,8 +1,30 @@
-import { StyleSheet, Text, View } from "react-native";
 import React from "react";
-import { Tabs } from "expo-router";
+import { Tabs, Redirect, Slot } from "expo-router";
+import { View, Text, ActivityIndicator } from "react-native";
+import { useAuth } from "../../context/AuthContext.jsx"; // adjust path if needed
 
-const DashBoardLayout = () => {
+const ProtectedTabs = () => {
+    const { user, initializing } = useAuth();
+
+    if (initializing) {
+        return (
+            <View
+                style={{
+                    flex: 1,
+                    justifyContent: "center",
+                    alignItems: "center",
+                }}
+            >
+                <ActivityIndicator size="large" />
+                <Text>Loading...</Text>
+            </View>
+        );
+    }
+
+    if (!user) {
+        return <Redirect href="/(auth)/login" />;
+    }
+
     return (
         <Tabs
             screenOptions={{
@@ -11,13 +33,7 @@ const DashBoardLayout = () => {
                 tabBarActiveTintColor: "#ffffff",
             }}
         >
-            <Tabs.Screen
-                name="home"
-                options={{
-                    title: "Home",
-                    tabBarIconStyle: { borderRadius: 10 },
-                }}
-            />
+            <Tabs.Screen name="home" options={{ title: "Home" }} />
             <Tabs.Screen name="contest" options={{ title: "Contest" }} />
             <Tabs.Screen name="problems" options={{ title: "Problems" }} />
             <Tabs.Screen name="stats" options={{ title: "Stats" }} />
@@ -26,6 +42,6 @@ const DashBoardLayout = () => {
     );
 };
 
-export default DashBoardLayout;
-
-const styles = StyleSheet.create({});
+export default function Layout() {
+    return <ProtectedTabs />;
+}

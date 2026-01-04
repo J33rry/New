@@ -1,13 +1,15 @@
-import { StyleSheet, Text, View } from "react-native";
-import React from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
-import { Link } from "expo-router";
+
+import GoogleSignIn from "../../components/googleSignIn.jsx";
+import { Text, TouchableOpacity } from "react-native";
 
 const Login = () => {
     return (
-        <SafeAreaView>
-            <Text>Login</Text>
-            <Link href="/(dashboard)/home">Go to Home</Link>
+        <SafeAreaView className="flex-1 justify-center items-center">
+            <GoogleSignIn />
+            <TouchableOpacity className="mb-4">
+                <Text>Continue as Guest</Text>
+            </TouchableOpacity>
         </SafeAreaView>
     );
 };
