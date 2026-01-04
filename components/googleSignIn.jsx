@@ -1,13 +1,12 @@
-import React, { useEffect } from "react";
-import { View, ActivityIndicator } from "react-native";
-import {
-    GoogleSigninButton,
-    GoogleSignin,
-} from "@react-native-google-signin/google-signin";
+import { useEffect } from "react";
+import { View, ActivityIndicator, Pressable, Image, Text } from "react-native";
+import { GoogleSignin } from "@react-native-google-signin/google-signin";
 import auth from "@react-native-firebase/auth";
 import { useRouter } from "expo-router";
 import { useAuth } from "../context/AuthContext.jsx";
 import { SafeAreaView } from "react-native-safe-area-context";
+// import { signInWithGoogle } from "../context/AuthContext.jsx";
+
 GoogleSignin.configure({
     webClientId:
         "771457794896-h13mi5o8l9la6jk7l7u7vronb07ohi6a.apps.googleusercontent.com",
@@ -15,32 +14,13 @@ GoogleSignin.configure({
 
 const GoogleSignIn = () => {
     const router = useRouter();
-    const { user, initializing } = useAuth();
+    const { user, initializing, signInWithGoogle } = useAuth();
 
     useEffect(() => {
         if (user) {
             router.replace("/(dashboard)/home");
         }
     }, [user, router]);
-
-    const signInWithGoogle = async () => {
-        try {
-            await GoogleSignin.hasPlayServices({
-                showPlayServicesUpdateDialog: true,
-            });
-            const signInResult = await GoogleSignin.signIn();
-
-            const idToken = signInResult.data?.idToken || signInResult.idToken;
-            if (!idToken) throw new Error("No ID token found");
-
-            const googleCredential =
-                auth.GoogleAuthProvider.credential(idToken);
-
-            await auth().signInWithCredential(googleCredential);
-        } catch (error) {
-            console.error("Google Sign-In Error:", error);
-        }
-    };
 
     if (initializing) {
         return (
@@ -57,14 +37,19 @@ const GoogleSignIn = () => {
     }
 
     return (
-        <SafeAreaView className="justify-center items-center rounded-xl">
-            <GoogleSigninButton
-                size={GoogleSigninButton.Size.Wide}
-                color={GoogleSigninButton.Color.Dark}
-                onPress={signInWithGoogle}
-                style={{ borderRadius: 10 }}
+        <Pressable
+            onPress={signInWithGoogle}
+            className="flex-row items-center justify-center bg-white border border-gray-300 rounded-lg py-3 px-4 shadow-sm active:bg-gray-100 w-48"
+            style={{ elevation: 2 }}
+        >
+            <Image
+                source={require("../assets/googleIcon.png")}
+                className="size-7 mr-2"
             />
-        </SafeAreaView>
+            <Text className="text-gray-700 font-bold text-base">
+                Sign in with Google
+            </Text>
+        </Pressable>
     );
 };
 

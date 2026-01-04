@@ -4,7 +4,7 @@ import { SafeAreaView } from "react-native-safe-area-context";
 
 const Problems = () => {
     return (
-        <SafeAreaView>
+        <SafeAreaView className="flex-1 justify-center items-center gap-4">
             <Text>Problems</Text>
         </SafeAreaView>
     );
