@@ -1,16 +1,27 @@
-import React from "react";
-import { View, Text } from "react-native";
-import { useAuth } from "../../context/AuthContext.jsx"; // update relative path as needed
+import React, { useEffect } from "react"; // <--- Import useEffect
+import { View, Text, ActivityIndicator } from "react-native";
+import { useAuth } from "../../context/AuthContext.jsx";
 import { SafeAreaView } from "react-native-safe-area-context";
+// import { useProblem } from "../../context/problemContext.jsx";
+// import ProblemDescription from "../../components/problemDescription.jsx";
 
 const Home = () => {
     const { user, initializing } = useAuth();
 
-    if (initializing) return <Text>Loading...</Text>;
-    // console.log(user);
+    // 1. Destructure the DATA (daily) and LOADING state, not just the function
+
+    if (initializing) {
+        return (
+            <SafeAreaView className="flex-1 justify-center items-center">
+                <ActivityIndicator size="large" />
+                <Text>Loading...</Text>
+            </SafeAreaView>
+        );
+    }
+
     return (
-        <SafeAreaView className="flex-1 justify-center items-center gap-4">
-            <Text>{user ? `Welcome, ${user.email}` : "Not signed in"}</Text>
+        <SafeAreaView className="flex-1 justify-center items-center">
+            <Text className="text-xl font-bold">Welcome</Text>
         </SafeAreaView>
     );
 };

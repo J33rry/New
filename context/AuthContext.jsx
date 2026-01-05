@@ -2,12 +2,78 @@ import React, { createContext, useContext, useEffect, useState } from "react";
 import auth from "@react-native-firebase/auth";
 import { GoogleSignin } from "@react-native-google-signin/google-signin";
 import { Alert } from "react-native";
+import { authAPI } from "../services/api";
+import { getMessagingToken } from "../utils/firebaseToken";
 
 const AuthContext = createContext({ user: null, initializing: true });
 
 export const AuthProvider = ({ children }) => {
     const [user, setUser] = useState(null);
     const [initializing, setInitializing] = useState(true);
+
+    // Sync user to backend whenever user changes
+    const syncUserToBackend = async (currentUser) => {
+        try {
+            if (!currentUser) return;
+
+            // 1. Get the Push Notification Token (Address)
+            let fcmToken = await getMessagingToken();
+            if (!fcmToken) {
+                console.warn("No FCM token available for push notifications.");
+                fcmToken = null; // Proceed without it
+            }
+
+            // 2. Call your Backend
+            const response = await authAPI.authSync({
+                pushToken: fcmToken,
+            });
+            console.log(
+                "✅ Backend Sync Success. Postgres ID:",
+                response.data.userId
+            );
+            setUser((user) => ({
+                ...user,
+                displayName: response.data.display_name,
+                postgresId: response.data.userId,
+                leetcodeUser: response.data.leetcodeUser,
+                codeforcesUser: response.data.codeforcesUser,
+            }));
+        } catch (error) {
+            console.error("❌ Backend Sync Failed:", error);
+        }
+    };
+
+    // Register with Email function
+    const registerWithEmail = async (email, password, name) => {
+        try {
+            await auth().createUserWithEmailAndPassword(email, password);
+            await auth().currentUser.updateProfile({ displayName: name });
+            await syncUserToBackend(auth().currentUser);
+        } catch (error) {
+            if (error.code === "auth/email-already-in-use") {
+                throw new Error("That email address is already in use!");
+            }
+            if (error.code === "auth/invalid-email") {
+                throw new Error("That email address is invalid!");
+            }
+            throw error;
+        }
+    };
+
+    // Email Sign-in function
+    const loginWithEmail = async (email, password) => {
+        try {
+            await auth().signInWithEmailAndPassword(email, password);
+        } catch (error) {
+            if (
+                error.code === "auth/user-not-found" ||
+                error.code === "auth/wrong-password"
+            ) {
+                throw new Error("Invalid email or password");
+            }
+            throw error;
+        }
+    };
 
     // google sign-in function
     const signInWithGoogle = async () => {
@@ -92,7 +158,12 @@ export const AuthProvider = ({ children }) => {
     };
 
     useEffect(() => {
-        const unsubscribe = auth().onAuthStateChanged((u) => {
+        const unsubscribe = auth().onAuthStateChanged(async (u) => {
+            if (u) {
+                // Whenever user state changes to "Logged In", we try to sync.
+                // This covers Auto-Login, Google Login, and Guest Login.
+                await syncUserToBackend(u);
+            }
             setUser(u);
             setInitializing(false);
         });
@@ -108,6 +179,8 @@ export const AuthProvider = ({ children }) => {
                 signOutUser,
                 guestSignIn,
                 linkGoogleAccount,
+                registerWithEmail,
+                loginWithEmail,
             }}
         >
             {children}

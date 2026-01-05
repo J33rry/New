@@ -12,7 +12,7 @@ GoogleSignin.configure({
         "771457794896-h13mi5o8l9la6jk7l7u7vronb07ohi6a.apps.googleusercontent.com",
 });
 
-const GoogleSignIn = () => {
+const GoogleSignIn = ({ text }) => {
     const router = useRouter();
     const { user, initializing, signInWithGoogle } = useAuth();
 
@@ -46,9 +46,7 @@ const GoogleSignIn = () => {
                 source={require("../assets/googleIcon.png")}
                 className="size-7 mr-2"
             />
-            <Text className="text-gray-700 font-bold text-base">
-                Sign in with Google
-            </Text>
+            <Text className="text-gray-700 font-bold text-base">{text}</Text>
         </Pressable>
     );
 };

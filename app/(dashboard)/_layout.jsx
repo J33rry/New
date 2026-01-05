@@ -2,6 +2,7 @@ import React from "react";
 import { Tabs, Redirect, Slot } from "expo-router";
 import { View, Text, ActivityIndicator } from "react-native";
 import { useAuth } from "../../context/AuthContext.jsx"; // adjust path if needed
+import { ProblemProvider } from "../../context/problemContext.jsx";
 
 const ProtectedTabs = () => {
     const { user, initializing } = useAuth();
@@ -43,5 +44,9 @@ const ProtectedTabs = () => {
 };
 
 export default function Layout() {
-    return <ProtectedTabs />;
+    return (
+        <ProblemProvider>
+            <ProtectedTabs />
+        </ProblemProvider>
+    );
 }

@@ -4,16 +4,14 @@ import { useEffect } from "react";
 import messaging from "@react-native-firebase/messaging";
 import * as Notifications from "expo-notifications";
 import { Redirect } from "expo-router";
+import { getMessagingToken } from "../utils/firebaseToken";
 
 export default function Page() {
-    // const { user, initializing } = useAuth();
     useEffect(() => {
         async function requestNotificationPermission() {
             const { status } = await Notifications.requestPermissionsAsync();
 
-            if (status === "granted") {
-                getToken();
-            } else {
+            if (status !== "granted") {
                 Linking.openSettings();
             }
         }
@@ -30,10 +28,5 @@ export default function Page() {
 
         return unsubscribe;
     }, []);
-
-    const getToken = async () => {
-        const token = await messaging().getToken();
-        // console.log(token);
-    };
     return <Redirect href="/(dashboard)/home" />;
 }
