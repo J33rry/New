@@ -1,13 +1,25 @@
 import { View, Text } from "react-native";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
 import ProblemDescription from "../../components/problemDescription";
-import { useProblem } from "../../context/problemContext";
+import { leetcodeAPI } from "../../services/api";
 
 const Problems = () => {
-    const { getDailyProblem, daily, loading } = useProblem();
+    // const { getDailyProblem, daily, loading } = useProblem();
+    const [daily, setDaily] = useState(null);
+    const [loading, setLoading] = useState(false);
 
-    // 2. Use useEffect to fetch data ONLY on mount
+    const getDailyProblem = async () => {
+        setLoading(true);
+        try {
+            const response = await leetcodeAPI.dailyProblem();
+            setDaily(response.data);
+        } catch (error) {
+            console.error("Failed to fetch daily problem", error);
+        } finally {
+            setLoading(false);
+        }
+    };
     useEffect(() => {
         getDailyProblem();
     }, []);

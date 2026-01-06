@@ -2,7 +2,6 @@ import React from "react";
 import { Tabs, Redirect, Slot } from "expo-router";
 import { View, Text, ActivityIndicator } from "react-native";
 import { useAuth } from "../../context/AuthContext.jsx"; // adjust path if needed
-import { ProblemProvider } from "../../context/problemContext.jsx";
 
 const ProtectedTabs = () => {
     const { user, initializing } = useAuth();
@@ -35,8 +34,8 @@ const ProtectedTabs = () => {
             }}
         >
             <Tabs.Screen name="home" options={{ title: "Home" }} />
-            <Tabs.Screen name="contest" options={{ title: "Contest" }} />
-            <Tabs.Screen name="problems" options={{ title: "Problems" }} />
+            <Tabs.Screen name="contest" options={{ title: "Problems" }} />
+            <Tabs.Screen name="problems" options={{ title: "Daily" }} />
             <Tabs.Screen name="stats" options={{ title: "Stats" }} />
             <Tabs.Screen name="profile" options={{ title: "Profile" }} />
         </Tabs>
@@ -44,9 +43,5 @@ const ProtectedTabs = () => {
 };
 
 export default function Layout() {
-    return (
-        <ProblemProvider>
-            <ProtectedTabs />
-        </ProblemProvider>
-    );
+    return <ProtectedTabs />;
 }

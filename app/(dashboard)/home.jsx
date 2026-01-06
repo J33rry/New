@@ -2,8 +2,6 @@ import React, { useEffect } from "react"; // <--- Import useEffect
 import { View, Text, ActivityIndicator } from "react-native";
 import { useAuth } from "../../context/AuthContext.jsx";
 import { SafeAreaView } from "react-native-safe-area-context";
-// import { useProblem } from "../../context/problemContext.jsx";
-// import ProblemDescription from "../../components/problemDescription.jsx";
 
 const Home = () => {
     const { user, initializing } = useAuth();

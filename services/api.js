@@ -48,9 +48,9 @@ export const authAPI = {
 
 export const leetcodeAPI = {
     dailyProblem: () => api.get("/leetcode/daily"),
-    problems: () => api.get("/leetcode/problems"),
+    problems: (skip) => api.get("/leetcode/problems", { params: { skip } }),
     getProblemDetails: (slug) => api.get(`/leetcode/problem/${slug}`),
-    userStats: (username) => api.get(`/leetcode/userStats/${username}`),
+    userStats: (data) => api.get(`/leetcode/userStats/`, data),
 };
 
 export default api;
