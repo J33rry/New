@@ -10,6 +10,7 @@ const AuthContext = createContext({ user: null, initializing: true });
 export const AuthProvider = ({ children }) => {
     const [user, setUser] = useState(null);
     const [initializing, setInitializing] = useState(true);
+    const [details, setDetails] = useState({});
 
     // Sync user to backend whenever user changes
     const syncUserToBackend = async (currentUser) => {
@@ -22,22 +23,18 @@ export const AuthProvider = ({ children }) => {
                 console.warn("No FCM token available for push notifications.");
                 fcmToken = null; // Proceed without it
             }
+            console.log(currentUser);
 
             // 2. Call your Backend
             const response = await authAPI.authSync({
                 pushToken: fcmToken,
+                isAnonymous: currentUser.isAnonymous,
             });
             console.log(
                 "✅ Backend Sync Success. Postgres ID:",
                 response.data.userId
             );
-            setUser((user) => ({
-                ...user,
-                displayName: response.data.display_name,
-                postgresId: response.data.userId,
-                leetcodeUser: response.data.leetcodeUser,
-                codeforcesUser: response.data.codeforcesUser,
-            }));
+            setDetails(response.data);
         } catch (error) {
             console.error("❌ Backend Sync Failed:", error);
         }
@@ -174,6 +171,7 @@ export const AuthProvider = ({ children }) => {
         <AuthContext.Provider
             value={{
                 user,
+                details,
                 initializing,
                 signInWithGoogle,
                 signOutUser,

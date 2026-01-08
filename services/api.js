@@ -1,9 +1,11 @@
 import axios from "axios";
 import { getAuthToken } from "../utils/firebaseToken";
+import { get } from "react-native/Libraries/TurboModule/TurboModuleRegistry";
 // import { updateProfile } from "@react-native-firebase/auth";
 
 const api = axios.create({
     baseURL: "http://172.20.10.5:3001",
+    // baseURL: "http://10.180.104.24:3001",
     timeout: 30000,
     headers: {
         "Content-Type": "application/json",
@@ -48,9 +50,26 @@ export const authAPI = {
 
 export const leetcodeAPI = {
     dailyProblem: () => api.get("/leetcode/daily"),
-    problems: (skip) => api.get("/leetcode/problems", { params: { skip } }),
+    problems: ({ skip = 0, limit = 50, filters = {} }) =>
+        api.post("/leetcode/problems", {
+            skip,
+            limit,
+            filters,
+        }),
     getProblemDetails: (slug) => api.get(`/leetcode/problem/${slug}`),
-    userStats: (data) => api.get(`/leetcode/userStats/`, data),
+    userStats: (userId) =>
+        api.get(`/leetcode/userStats`, { params: { userId } }),
+};
+
+export const codeforcesAPI = {
+    problems: ({ skip = 0, limit = 50, filters = {} }) =>
+        api.post("/codeforces/problems", {
+            skip,
+            limit,
+            filters,
+        }),
+    getProblemDetails: ({ contestId, index }) =>
+        api.post("/codeforces/problem", { contestId, index }),
 };
 
 export default api;

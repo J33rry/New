@@ -10,15 +10,17 @@ import GuestLink from "../../components/guestLink";
 import UserSignOut from "../../components/signOutUser";
 
 const Profile = () => {
-    const onPress = async () => {
-        await auth().signOut();
-        router.push("/(auth)/login");
-    };
-    const { user, initializing } = useAuth();
     const router = useRouter();
+
     return (
         <SafeAreaView className="flex-1 justify-center items-center gap-4">
             <Text>Profile</Text>
+            <Pressable
+                onPress={() => router.push("/profile/completeProfile")}
+                className="bg-blue-500 px-4 py-2 rounded"
+            >
+                <Text>Edit Profile</Text>
+            </Pressable>
             <GuestLink />
             <UserSignOut />
         </SafeAreaView>

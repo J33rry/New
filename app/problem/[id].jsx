@@ -6,7 +6,7 @@ import { leetcodeAPI } from "../../services/api";
 import ProblemDescription from "../../components/problemDescription";
 
 const ProblemDetails = () => {
-    const { id } = useLocalSearchParams(); // This is the slug (e.g., "two-sum")
+    const { id } = useLocalSearchParams();
     const [details, setDetails] = useState(null);
     const [loading, setLoading] = useState(true);
 
@@ -16,7 +16,6 @@ const ProblemDetails = () => {
 
             try {
                 setLoading(true);
-                // ⚠️ CHECK: Ensure this matches the name in your api.js file
                 const response = await leetcodeAPI.getProblemDetails(id);
                 setDetails(response.data);
             } catch (error) {

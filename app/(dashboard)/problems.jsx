@@ -5,7 +5,6 @@ import ProblemDescription from "../../components/problemDescription";
 import { leetcodeAPI } from "../../services/api";
 
 const Problems = () => {
-    // const { getDailyProblem, daily, loading } = useProblem();
     const [daily, setDaily] = useState(null);
     const [loading, setLoading] = useState(false);
 
@@ -30,6 +29,7 @@ const Problems = () => {
             </SafeAreaView>
         );
     }
+    // REmemeber to enable daily problem feature later
     return (
         <SafeAreaView className="flex-1 justify-center items-center gap-4">
             <Text>Problems</Text>
@@ -40,6 +40,11 @@ const Problems = () => {
             )}
         </SafeAreaView>
     );
+    // return (
+    //     <SafeAreaView className="flex-1 justify-center items-center">
+    //         <Text>Let work on codeForces</Text>
+    //     </SafeAreaView>
+    // );
 };
 
 export default Problems;
