@@ -12,7 +12,7 @@ GoogleSignin.configure({
         "771457794896-h13mi5o8l9la6jk7l7u7vronb07ohi6a.apps.googleusercontent.com",
 });
 
-const GoogleSignIn = ({ text }) => {
+const GoogleSignIn = ({ text, page }) => {
     const router = useRouter();
     const { user, initializing, signInWithGoogle } = useAuth();
 
@@ -39,14 +39,18 @@ const GoogleSignIn = ({ text }) => {
     return (
         <Pressable
             onPress={signInWithGoogle}
-            className="flex-row items-center justify-center bg-white border border-gray-300 rounded-lg py-3 px-4 shadow-sm active:bg-gray-100 w-48"
+            className={`flex-row items-center justify-center  bg-dark-surface dark:bg-light-surface ${
+                page === "login" ? "w-[49%]" : "w-[70%]"
+            } h-[3.5rem] rounded-2xl mt-4 border-2 border-light-border_color dark:border-dark-border_color p-1 py-3 px-4 shadow-sm active:bg-gray-100`}
             style={{ elevation: 2 }}
         >
             <Image
                 source={require("../assets/googleIcon.png")}
                 className="size-7 mr-2"
             />
-            <Text className="text-gray-700 font-bold text-base">{text}</Text>
+            <Text className="text-dark-text_main dark:text-light-text_main font-bold text-base">
+                {text}
+            </Text>
         </Pressable>
     );
 };

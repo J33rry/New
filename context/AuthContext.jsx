@@ -10,7 +10,7 @@ const AuthContext = createContext({ user: null, initializing: true });
 export const AuthProvider = ({ children }) => {
     const [user, setUser] = useState(null);
     const [initializing, setInitializing] = useState(true);
-    const [details, setDetails] = useState({});
+    const [userDetails, setUserDetails] = useState(null);
 
     // Sync user to backend whenever user changes
     const syncUserToBackend = async (currentUser) => {
@@ -34,7 +34,6 @@ export const AuthProvider = ({ children }) => {
                 "✅ Backend Sync Success. Postgres ID:",
                 response.data.userId
             );
-            setDetails(response.data);
         } catch (error) {
             console.error("❌ Backend Sync Failed:", error);
         }
@@ -171,8 +170,9 @@ export const AuthProvider = ({ children }) => {
         <AuthContext.Provider
             value={{
                 user,
-                details,
+                userDetails,
                 initializing,
+                setUserDetails,
                 signInWithGoogle,
                 signOutUser,
                 guestSignIn,

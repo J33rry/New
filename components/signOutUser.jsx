@@ -1,20 +1,19 @@
-import { View, Text, Pressable } from "react-native";
-import React from "react";
-import auth from "@react-native-firebase/auth";
-import { GoogleSignin } from "@react-native-google-signin/google-signin";
-import { useAuth } from "../context/AuthContext";
-// import { signOutUser } from "../context/AuthContext.jsx";
+import { Text, Pressable } from "react-native";
 
-const UserSignOut = () => {
-    const { user, initializing, signOutUser } = useAuth();
+import { useAuth } from "../context/AuthContext";
+
+const UserSignOut = ({ is_guest }) => {
+    const { signOutUser } = useAuth();
 
     return (
         <Pressable
             onPress={signOutUser}
-            className="flex-row items-center justify-center bg-red-400 border border-gray-300 rounded-lg py-3 px-4 shadow-sm active:bg-gray-100 w-48"
+            className={`items-center justify-center bg-dark-surface dark:bg-light-surface ${
+                is_guest ? "w-[49%]" : "w-[70%]"
+            }  h-[3.5rem] rounded-2xl border-2 border-light-border_color dark:border-dark-border_color p-1 mt-4`}
             style={{ elevation: 2 }}
         >
-            <Text style={{ color: "white" }} className="">
+            <Text className="text-dark-text_main dark:text-light-text_main text-xl font-bold">
                 Sign Out
             </Text>
         </Pressable>

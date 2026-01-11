@@ -1,22 +1,25 @@
-import { View, Text, Pressable } from "react-native";
-import React from "react";
-import { SafeAreaView } from "react-native-safe-area-context";
-import { MaterialIcons, FontAwesome } from "@expo/vector-icons";
-import auth from "@react-native-firebase/auth";
+import { Text, Pressable } from "react-native";
+import { FontAwesome } from "@expo/vector-icons";
 import { useAuth } from "../context/AuthContext";
-// import { guestSignIn } from "../context/AuthContext.jsx";
+import { useColorScheme } from "nativewind";
 
 const GuestSignIn = () => {
-    const { user, initializing, guestSignIn } = useAuth();
+    const { guestSignIn } = useAuth();
+    const { colorScheme } = useColorScheme();
     return (
         <Pressable
             onPress={guestSignIn}
-            className="flex-row items-center justify-center bg-white border border-gray-300 rounded-lg py-3 px-4 shadow-sm active:bg-gray-100 w-48"
+            className="flex-row items-center justify-center  bg-dark-surface dark:bg-light-surface w-[49%] h-[3.5rem] rounded-2xl mt-4 border-2 border-light-border_color dark:border-dark-border_color p-1 py-3 px-4 shadow-sm active:bg-gray-100"
             style={{ elevation: 2 }}
         >
-            <FontAwesome name="user" size={24} color="black" className="mr-2" />
-            <Text className="text-gray-700 font-bold text-base">
-                Continue as Guest
+            <FontAwesome
+                name="user"
+                size={24}
+                color={colorScheme != "dark" ? "#FFFFFF" : "#1E293B"}
+                className="mr-2 text-light-surface dark:text-light-surface"
+            />
+            <Text className="text-dark-text_main dark:text-light-text_main font-bold text-base">
+                Guest
             </Text>
         </Pressable>
     );
