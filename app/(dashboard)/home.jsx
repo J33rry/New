@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react"; // <--- Import useEffect
-import { Text, ActivityIndicator } from "react-native";
+import { Text, ActivityIndicator, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { authAPI } from "../../services/api.js";
 import Header from "../../components/header.jsx";
@@ -14,11 +14,7 @@ const Home = () => {
         setLoading(true);
         try {
             const response = await authAPI.getProfile();
-
-            // console.log(response.data.leetcode_stats);
-            // setData(response.data);
             setUserDetails(response.data);
-            // console.log(userDetails);
         } catch (error) {
             console.error("Error fetching profile:", error);
         } finally {
@@ -41,6 +37,8 @@ const Home = () => {
     return (
         <SafeAreaView className="flex-1 bg-light-primary dark:bg-dark-primary">
             <Header data={userDetails} />
+
+            <View></View>
         </SafeAreaView>
     );
 };
