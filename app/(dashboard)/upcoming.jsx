@@ -58,9 +58,9 @@ const Upcoming = () => {
     }
 
     return (
-        <SafeAreaView className="flex-1 bg-gray-50 p-4">
-            <Text className="text-2xl font-bold mb-4 text-gray-800">
-                Upcoming Contests
+        <SafeAreaView className="flex-1 bg-light-primary dark:bg-dark-primary p-4">
+            <Text className="text-2xl font-bold text-light-text_main dark:text-dark-text_main mb-4">
+                Upcoming contest
             </Text>
 
             <FlatList
@@ -69,13 +69,10 @@ const Upcoming = () => {
                 contentContainerStyle={{ paddingBottom: 20 }}
                 renderItem={({ item }) => (
                     // 2. FIX: Added parenthesis () for implicit return
-                    <View
-                        // onPress={() => Linking.openURL(item.url)}
-                        className="bg-white p-4 mb-3 rounded-xl border border-gray-200 shadow-sm"
-                    >
+                    <View className="px-4 py-2 border rounded-lg bg-light-surface dark:bg-dark-surface mb-4">
                         <View className="flex-row justify-between items-start mb-2">
                             <View className="flex-1 mr-2">
-                                <Text className="text-lg font-bold text-gray-800 leading-6">
+                                <Text className="text-lg font-bold text-light-text_main dark:text-dark-text_main leading-6">
                                     {item.title}
                                 </Text>
                             </View>

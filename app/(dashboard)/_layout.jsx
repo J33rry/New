@@ -32,7 +32,6 @@ const ProtectedTabs = () => {
             <Tabs.Screen name="home" />
             <Tabs.Screen name="contest" />
             <Tabs.Screen name="problems" />
-            <Tabs.Screen name="codeforces" />
             <Tabs.Screen name="upcoming" />
         </Tabs>
     );
