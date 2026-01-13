@@ -35,12 +35,12 @@ const Login = () => {
     };
 
     return (
-        <SafeAreaView className="flex-1 bg-dark-primary dark:bg-light-primary items-center">
+        <SafeAreaView className="flex-1 bg-light-primary dark:bg-dark-primary items-center">
             <Animated.View className="h-[20%] w-full rounded-bl-xl">
                 <FontAwesome
                     name="codepen"
                     size={80}
-                    color={colorScheme != "dark" ? "#FFFFFF" : "#1E293B"}
+                    color={colorScheme != "dark" ? "#4F46E5" : "#818CF8"}
                     className="self-center mt-8"
                 />
             </Animated.View>
@@ -48,8 +48,8 @@ const Login = () => {
                 sharedTransitionTag="customToggle"
                 className="bg-light-surface dark:bg-dark-surface w-full items-center justify-center relative rounded-tr-[4rem]"
             >
-                <View className="absolute bottom-[100%] left-0 h-[4rem] w-[rem] bg-light-surface dark:bg-dark-surface z-10">
-                    <View className="h-[4rem] w-[4rem] bg-dark-primary dark:bg-light-primary z-10 rounded-bl-full "></View>
+                <View className="absolute bottom-[100%] left-0 h-[4rem] w-[4rem] bg-light-surface dark:bg-dark-surface z-10">
+                    <View className="h-[4rem] w-[4rem] bg-light-primary dark:bg-dark-primary z-10 rounded-bl-full "></View>
                 </View>
                 <CustomToggle activeTabProp={"login"} onToggle={handleToggle} />
             </Animated.View>
@@ -74,10 +74,10 @@ const Login = () => {
                     <ForgotPasswordModal isVisible={false} onClose={() => {}} />
                     <Pressable
                         onPress={handleSubmitLogin}
-                        className="items-center justify-center bg-dark-surface dark:bg-light-surface w-[70%] h-[3.5rem] rounded-2xl border-2 border-light-border_color dark:border-dark-border_color p-1 mt-48"
+                        className="items-center justify-center bg-light-text_sub dark:bg-dark-text_sub w-[70%] h-[3.5rem] rounded-2xl border-2 border-light-border_color dark:border-dark-border_color p-1 mt-48"
                         style={{ elevation: 2 }}
                     >
-                        <Text className="text-dark-text_main dark:text-light-text_main text-xl font-bold">
+                        <Text className="text-light-text_main dark:text-dark-text_main text-xl font-bold">
                             Login
                         </Text>
                     </Pressable>
@@ -119,10 +119,10 @@ const Login = () => {
 
                     <Pressable
                         onPress={handleSubmitRegister}
-                        className="items-center justify-center bg-dark-surface dark:bg-light-surface w-[70%] h-[3.5rem] rounded-2xl border-2 border-light-border_color dark:border-dark-border_color p-1 mt-48"
+                        className="items-center justify-center bg-light-text_sub dark:bg-dark-text_sub w-[70%] h-[3.5rem] rounded-2xl border-2 border-light-border_color dark:border-dark-border_color p-1 mt-48"
                         style={{ elevation: 2 }}
                     >
-                        <Text className="text-dark-text_main dark:text-light-text_main text-xl font-bold">
+                        <Text className="text-light-text_main dark:text-dark-text_main text-xl font-bold">
                             Register
                         </Text>
                     </Pressable>

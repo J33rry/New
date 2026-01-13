@@ -45,7 +45,6 @@ const CustomTabBar = ({ state, navigation }) => {
         { name: "home", icon: "home" },
         { name: "contest", icon: "code" },
         { name: "problems", icon: "list-ul" },
-        { name: "codeforces", icon: "trophy" },
         { name: "upcoming", icon: "user" },
     ];
 

@@ -8,7 +8,7 @@ const UserSignOut = ({ is_guest }) => {
     return (
         <Pressable
             onPress={signOutUser}
-            className={`items-center justify-center bg-dark-surface dark:bg-light-surface ${
+            className={`items-center justify-center bg-light-text_sub dark:bg-dark-text_sub ${
                 is_guest ? "w-[49%]" : "w-[70%]"
             }  h-[3.5rem] rounded-2xl border-2 border-light-border_color dark:border-dark-border_color p-1 mt-4`}
             style={{ elevation: 2 }}

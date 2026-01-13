@@ -62,16 +62,11 @@ const CodeForcesProblem = () => {
     const problem = details.data;
 
     return (
-        <SafeAreaView className="flex-1 bg-white">
-            {/* ⚠️ IMPORTANT: We cannot use ScrollView here because the WebView 
-               inside CodeforcesDescription handles its own scrolling. 
-               Nesting WebView in ScrollView causes layout bugs.
-            */}
-
+        <SafeAreaView className="flex-1 bg-light-primary dark:bg-dark-primary">
             <View className="flex-1 px-4 pt-2">
                 {/* Header Section */}
-                <View className="mb-4 border-b border-gray-200 pb-2">
-                    <Text className="text-xl font-bold text-gray-900 mb-2">
+                <View className="mb-4 border-b border-light-border_color dark:border-dark-border_color pb-2">
+                    <Text className="text-xl font-bold text-light-text_main dark:text-dark-text_main mb-2">
                         {problem.title}
                     </Text>
 

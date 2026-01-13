@@ -44,7 +44,7 @@ const ToggleSwitch = ({ onToggle, initialValue = true }) => {
         >
             {/* The Moving Background Pill */}
             <Animated.View
-                className="absolute top-0 bottom-0 left-0 bg-dark-surface dark:bg-light-surface rounded-full m-1 shadow-sm"
+                className="absolute top-0 bottom-0 left-0 bg-light-text_sub dark:bg-dark-text_sub rounded-full m-1 shadow-sm"
                 style={[{ width: TAB_WIDTH - 8 }, animatedStyle]}
             />
 

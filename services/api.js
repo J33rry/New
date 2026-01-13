@@ -2,8 +2,8 @@ import axios from "axios";
 import { getAuthToken } from "../utils/firebaseToken";
 
 const api = axios.create({
-    baseURL: "http://172.20.10.5:6000",
-    // baseURL: "http://10.70.222.24:6000",
+    // baseURL: "http://172.20.10.5:6000",
+    baseURL: "http://10.40.81.24:6000",
     timeout: 30000,
     headers: {
         "Content-Type": "application/json",

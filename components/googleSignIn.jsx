@@ -39,7 +39,7 @@ const GoogleSignIn = ({ text, page }) => {
     return (
         <Pressable
             onPress={signInWithGoogle}
-            className={`flex-row items-center justify-center  bg-dark-surface dark:bg-light-surface ${
+            className={`flex-row items-center justify-center  bg-light-text_sub dark:bg-dark-text_sub ${
                 page === "login" ? "w-[49%]" : "w-[70%]"
             } h-[3.5rem] rounded-2xl mt-4 border-2 border-light-border_color dark:border-dark-border_color p-1 py-3 px-4 shadow-sm active:bg-gray-100`}
             style={{ elevation: 2 }}
@@ -48,7 +48,7 @@ const GoogleSignIn = ({ text, page }) => {
                 source={require("../assets/googleIcon.png")}
                 className="size-7 mr-2"
             />
-            <Text className="text-dark-text_main dark:text-light-text_main font-bold text-base">
+            <Text className="text-light-text_main dark:text-dark-text_main font-bold text-base">
                 {text}
             </Text>
         </Pressable>

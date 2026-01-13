@@ -12,13 +12,12 @@ import UserSignOut from "../../components/signOutUser";
 import GuestLink from "../../components/guestLink";
 
 const CompleteProfile = () => {
-    const { userDetails } = useAuth();
+    const { userDetails, setUserDetails } = useAuth();
     const [leetcodeUser, setLeetcodeUser] = useState("");
     const [codeforcesUser, setCodeforcesUser] = useState("");
     const [userName, setUserName] = useState("");
     const { colorScheme } = useColorScheme();
     const router = useRouter();
-    // console.log(userDetails);
 
     const userData = userDetails.profile ? userDetails.profile : userDetails;
 
@@ -28,6 +27,7 @@ const CompleteProfile = () => {
     const [contestNotifications, setContestNotifications] = useState(
         userData.contest_notifications
     );
+    const [loading, setLoading] = useState(false);
 
     const parseTime = (timeString) => {
         const [hours, minutes] = timeString.split(":");
@@ -46,39 +46,68 @@ const CompleteProfile = () => {
     const [notificationTime, setNotificationTime] = useState(
         parseTime(userData.daily_time)
     );
-
-    const onSubmit = async () => {
-        const res = await authAPI.updateProfile({
-            leetcode_user:
-                leetcodeUser === "" ? userData.leetcode_user : leetcodeUser,
-            codeforces_user:
-                codeforcesUser === ""
-                    ? userData.codeforces_user
-                    : codeforcesUser,
-            display_name: userName === "" ? userData.display_name : userName,
-            daily_notifications: dailyNotifications,
-            contest_notifications: contestNotifications,
-            daily_time: formatTimeForBackend(notificationTime),
-        });
-        if (res.status === 200) {
-            alert("Profile updated successfully!");
-            router.back();
-        } else {
-            alert("Failed to update profile. Please try again.");
+    const getProfileData = async () => {
+        setLoading(true);
+        try {
+            const response = await authAPI.getProfile();
+            setUserDetails(response.data);
+        } catch (error) {
+            console.error("Error fetching profile:", error);
+        } finally {
+            setLoading(false);
         }
     };
 
+    const onSubmit = async () => {
+        setLoading(true);
+        try {
+            const res = await authAPI.updateProfile({
+                leetcode_user:
+                    leetcodeUser === "" ? userData.leetcode_user : leetcodeUser,
+                codeforces_user:
+                    codeforcesUser === ""
+                        ? userData.codeforces_user
+                        : codeforcesUser,
+                display_name:
+                    userName === "" ? userData.display_name : userName,
+                daily_notifications: dailyNotifications,
+                contest_notifications: contestNotifications,
+                daily_time: formatTimeForBackend(notificationTime),
+            });
+            if (res.status === 200) {
+                alert("Profile updated successfully!");
+                getProfileData();
+                router.back();
+            } else {
+                alert("Failed to update profile. Please try again.");
+            }
+        } catch (error) {
+            console.error("Error updating profile:", error);
+            alert("An error occurred while updating the profile.");
+        } finally {
+            setLoading(false);
+        }
+    };
+    if (loading) {
+        return (
+            <SafeAreaView className="flex-1 justify-center items-center">
+                <ActivityIndicator size="large" />
+                <Text>Loading...</Text>
+            </SafeAreaView>
+        );
+    }
+
     return (
-        <SafeAreaView className="flex-1 justify-center items-center gap-4 bg-dark-surface dark:bg-light-surface">
+        <SafeAreaView className="flex-1 justify-center items-center gap-4 bg-light-primary dark:bg-dark-primary">
             <FontAwesome
                 name="id-card"
                 size={80}
-                color={colorScheme != "dark" ? "#FFFFFF" : "#1E293B"}
+                color={colorScheme != "dark" ? "#4F46E5" : "#818CF8"}
                 className="self-center mb-2"
             />
             <View className="w-full h-[85%] items-center bg-light-surface dark:bg-dark-surface rounded-[4rem] rounded-tl-none relative">
                 <View className="absolute bottom-[100%] left-0 h-[4rem] w-[4rem] bg-light-surface dark:bg-dark-surface z-10">
-                    <View className="h-[4rem] w-[4rem] bg-dark-surface dark:bg-light-surface z-10 rounded-bl-full "></View>
+                    <View className="h-[4rem] w-[4rem] bg-light-primary dark:bg-dark-primary z-10 rounded-bl-full "></View>
                 </View>
                 <View className="w-full items-center relative mt-8">
                     <TextInput
@@ -145,7 +174,7 @@ const CompleteProfile = () => {
 
                 <Pressable
                     onPress={onSubmit}
-                    className="items-center justify-center bg-dark-surface dark:bg-light-surface w-[70%] h-[3.5rem] rounded-2xl border-2 border-light-border_color dark:border-dark-border_color p-1 mt-1"
+                    className="items-center justify-center bg-light-text_sub dark:bg-dark-text_sub w-[70%] h-[3.5rem] rounded-2xl border-2 border-light-border_color dark:border-dark-border_color p-1 mt-1"
                     style={{ elevation: 2 }}
                 >
                     <Text className="text-dark-text_main dark:text-light-text_main text-xl font-bold">
@@ -154,7 +183,7 @@ const CompleteProfile = () => {
                 </Pressable>
                 {userData.is_guest ? (
                     <View className="flex-row w-[70%] gap-1">
-                        <GuestLink />
+                        <GuestLink userData={userData} />
                         <UserSignOut is_guest={userData.is_guest} />
                     </View>
                 ) : (

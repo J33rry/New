@@ -8,11 +8,7 @@ import Animated, {
 import { FontAwesome5 } from "@expo/vector-icons"; // Using icons for 5 tabs
 import { useColorScheme } from "nativewind";
 
-const MultiToggleSwitch = ({
-    tabs = ["home", "code", "trophy", "bolt", "user"],
-    onToggle,
-    initialIndex = 0,
-}) => {
+const MultiToggleSwitch = ({ tabs, onToggle, initialIndex = 0 }) => {
     const { width } = useWindowDimensions();
     const [activeIndex, setActiveIndex] = useState(initialIndex);
 

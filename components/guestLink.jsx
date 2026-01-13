@@ -2,13 +2,13 @@ import { Image, Pressable, Text } from "react-native";
 
 import { useAuth } from "../context/AuthContext";
 
-const GuestLink = () => {
-    const { user, linkGoogleAccount } = useAuth();
+const GuestLink = ({ userData }) => {
+    const { linkGoogleAccount } = useAuth();
     return (
-        user.isAnonymous && (
+        userData.is_guest && (
             <Pressable
                 onPress={linkGoogleAccount}
-                className="items-center justify-center bg-dark-surface dark:bg-light-surface w-[49%] h-[3.5rem] rounded-2xl border-2 border-light-border_color dark:border-dark-border_color p-1 mt-4 flex-row"
+                className="items-center justify-center bg-light-text_sub dark:bg-dark-text_sub w-[49%] h-[3.5rem] rounded-2xl border-2 border-light-border_color dark:border-dark-border_color p-1 mt-4 flex-row"
                 style={{ elevation: 2 }}
             >
                 <Image

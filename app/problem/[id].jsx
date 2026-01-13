@@ -47,10 +47,10 @@ const ProblemDetails = () => {
     const problem = details.data;
 
     return (
-        <SafeAreaView className="flex-1 bg-white">
+        <SafeAreaView className="flex-1 bg-light-primary dark:bg-dark-primary">
             <ScrollView contentContainerStyle={{ padding: 16 }}>
                 {/* 1. Header Section (Title & Badges) */}
-                <Text className="text-2xl font-bold mb-2 text-gray-900">
+                <Text className="text-2xl font-bold mb-2 text-light-text_main dark:text-dark-text_main">
                     {problem.title}
                 </Text>
 
@@ -59,21 +59,13 @@ const ProblemDetails = () => {
                     <View
                         className={`px-2 py-1 rounded ${
                             problem.difficulty === "Easy"
-                                ? "bg-green-100"
+                                ? "bg-green-700"
                                 : problem.difficulty === "Medium"
-                                ? "bg-yellow-100"
-                                : "bg-red-100"
+                                ? "bg-yellow-700"
+                                : "bg-red-700"
                         }`}
                     >
-                        <Text
-                            className={`font-bold text-xs ${
-                                problem.difficulty === "Easy"
-                                    ? "text-green-700"
-                                    : problem.difficulty === "Medium"
-                                    ? "text-yellow-800"
-                                    : "text-red-700"
-                            }`}
-                        >
+                        <Text className="font-bold text-xs text-light-text_sub dark:text-dark-text_sub">
                             {problem.difficulty}
                         </Text>
                     </View>
@@ -82,9 +74,11 @@ const ProblemDetails = () => {
                     {problem.topic_tags?.map((tag) => (
                         <View
                             key={tag}
-                            className="bg-gray-100 px-2 py-1 rounded"
+                            className="bg-light-surface dark:bg-dark-surface px-2 py-1 rounded"
                         >
-                            <Text className="text-xs text-gray-600">{tag}</Text>
+                            <Text className="text-xs text-light-text_sub dark:text-dark-text_sub">
+                                {tag}
+                            </Text>
                         </View>
                     ))}
                 </View>

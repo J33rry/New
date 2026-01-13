@@ -51,7 +51,7 @@ const CustomToggle = ({ onToggle, activeTabProp }) => {
         >
             {/* 1. The Moving White Background Pill */}
             <Animated.View
-                className="absolute top-0 bottom-0 left-0 bg-dark-surface dark:bg-light-surface rounded-full m-1 shadow-sm"
+                className="absolute top-0 bottom-0 left-0 bg-light-text_sub dark:bg-dark-text_sub rounded-full m-1 shadow-sm"
                 style={[
                     { width: TAB_WIDTH - 8 }, // Minus margins to create the "padding" look
                     animatedStyle,

@@ -29,7 +29,7 @@ module.exports = {
                     border_color: "#334155",
                 },
                 light: {
-                    primary: "#F8FAFC",
+                    primary: "#EEEEEE",
                     surface: "#FFFFFF",
                     text_main: "#0F172A",
                     text_sub: "#64748B",
