@@ -4,6 +4,7 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import { useLocalSearchParams } from "expo-router";
 import { leetcodeAPI } from "../../services/api";
 import ProblemDescription from "../../components/problemDescription";
+import LoadingScreen from "../../components/loadingScreen";
 
 const ProblemDetails = () => {
     const { id } = useLocalSearchParams();
@@ -29,11 +30,7 @@ const ProblemDetails = () => {
     }, [id]);
 
     if (loading) {
-        return (
-            <SafeAreaView className="flex-1 justify-center items-center">
-                <ActivityIndicator size="large" color="#6200ee" />
-            </SafeAreaView>
-        );
+        return <LoadingScreen message="Loading Problem" />;
     }
 
     if (!details || !details.data) {

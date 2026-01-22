@@ -3,7 +3,7 @@ import { getAuthToken } from "../utils/firebaseToken";
 
 const api = axios.create({
     // baseURL: "http://172.20.10.5:6000",
-    baseURL: "http://10.40.81.24:6000",
+    baseURL: "https://cozer-b0fnh3hvbbf2fgez.eastasia-01.azurewebsites.net",
     timeout: 30000,
     headers: {
         "Content-Type": "application/json",
@@ -12,15 +12,20 @@ const api = axios.create({
 
 api.interceptors.request.use(
     async (config) => {
-        const token = await getAuthToken();
-        if (token) {
-            config.headers.Authorization = `Bearer ${token}`;
+        try {
+            const token = await getAuthToken();
+            if (token) {
+                config.headers.Authorization = `Bearer ${token}`;
+            } else {
+                delete config.headers.Authorization;
+            }
+        } catch (error) {
+            // If token lookup fails (e.g., after logout), fall back gracefully
+            delete config.headers.Authorization;
         }
         return config;
     },
-    (error) => {
-        return Promise.reject(error);
-    }
+    (error) => Promise.reject(error),
 );
 
 api.interceptors.response.use(
@@ -30,13 +35,13 @@ api.interceptors.response.use(
     (error) => {
         if (error.response) {
             console.error(
-                `API Error: ${error.response.status} - ${error.response.data}`
+                `API Error: ${error.response.status} - ${error.response.data}`,
             );
         } else {
             console.error(`API Error: ${error.message}`);
         }
         return Promise.reject(error);
-    }
+    },
 );
 
 // Auth API

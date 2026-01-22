@@ -3,16 +3,17 @@ import { View, Text, ActivityIndicator } from "react-native";
 import { useAuth } from "../../context/AuthContext.jsx";
 import MultiToggleSwitch from "../../components/multiSwitch.jsx";
 import { SafeAreaView } from "react-native-safe-area-context";
+import LoadingScreen from "../../components/loadingScreen.jsx";
 
 const ProtectedTabs = () => {
     const { user, initializing } = useAuth();
 
     if (initializing) {
         return (
-            <View className="flex-1 justify-center items-center">
-                <ActivityIndicator size="large" />
-                <Text>Loading...</Text>
-            </View>
+            <LoadingScreen
+                title="Cozer"
+                message="Preparing your dashboard..."
+            />
         );
     }
 
@@ -43,8 +44,8 @@ const CustomTabBar = ({ state, navigation }) => {
     const routes = [
         { name: "home", icon: "home" },
         { name: "contest", icon: "code" },
-        { name: "problems", icon: "list-ul" },
-        { name: "upcoming", icon: "user" },
+        { name: "problems", icon: "calendar-day" },
+        { name: "upcoming", icon: "list-ul" },
     ];
 
     const handleToggle = (routeName, index) => {

@@ -4,6 +4,7 @@ import { useLocalSearchParams } from "expo-router";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { codeforcesAPI } from "../../services/api"; // Adjust path
 import CodeforcesDescription from "../../components/codeforcesDescription"; // New Component
+import LoadingScreen from "../../components/loadingScreen";
 
 const CodeForcesProblem = () => {
     // 1. Handle params. This supports both /codeforces/1234-A and /codeforces/1234/A
@@ -44,11 +45,7 @@ const CodeForcesProblem = () => {
     }, [contestId, index]);
 
     if (loading) {
-        return (
-            <SafeAreaView className="flex-1 justify-center items-center bg-white">
-                <ActivityIndicator size="large" color="#6200ee" />
-            </SafeAreaView>
-        );
+        return <LoadingScreen message="Loading Problem" />;
     }
 
     if (!details || !details.data) {

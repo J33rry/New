@@ -10,12 +10,15 @@ import Animated from "react-native-reanimated";
 import { FontAwesome } from "@expo/vector-icons";
 import CustomToggle from "../../components/customToggle.jsx";
 import ForgotPasswordModal from "../../components/forgetPassword.jsx";
+import LoadingScreen from "../../components/loadingScreen.jsx";
 
 const Login = () => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [user, setUser] = useState("");
     const { colorScheme } = useColorScheme();
+    const [forgetPasswordModalVisible, setForgetPasswordModalVisible] =
+        useState(false);
 
     const [page, setPage] = useState("login");
 
@@ -23,7 +26,7 @@ const Login = () => {
         setPage(mode);
     };
 
-    const { loginWithEmail, registerWithEmail } = useAuth();
+    const { loginWithEmail, registerWithEmail, initializing } = useAuth();
 
     const handleSubmitLogin = () => {
         if (!email || !password) return;
@@ -33,6 +36,7 @@ const Login = () => {
         if (!email || !password) return;
         registerWithEmail(email, password, user);
     };
+    if (initializing) return <LoadingScreen message="Signing In..." />;
 
     return (
         <SafeAreaView className="flex-1 bg-light-primary dark:bg-dark-primary items-center">
@@ -70,8 +74,19 @@ const Login = () => {
                         secureTextEntry
                         className="text-left pl-4 border-b-2 border-light-border_color dark:border-dark-border_color rounded-lg w-[70%] text-light-text_main dark:text-dark-text_main text-2xl placeholder:text-light-text_sub dark:placeholder:text-dark-text_sub"
                     />
+                    <Pressable
+                        onPress={() => setForgetPasswordModalVisible(true)}
+                        className="self-end mr-[15%] mt-3 border-2 bg-light-text_sub dark:bg-dark-text_sub border-light-border_color dark:border-dark-border_color rounded-lg items-center p-1"
+                    >
+                        <Text className="text-light-text_main dark:text-dark-text_main text-md text-right">
+                            Forgot Password?
+                        </Text>
+                    </Pressable>
 
-                    <ForgotPasswordModal isVisible={false} onClose={() => {}} />
+                    <ForgotPasswordModal
+                        isVisible={forgetPasswordModalVisible}
+                        onClose={() => setForgetPasswordModalVisible(false)}
+                    />
                     <Pressable
                         onPress={handleSubmitLogin}
                         className="items-center justify-center bg-light-text_sub dark:bg-dark-text_sub w-[70%] h-[3.5rem] rounded-2xl border-2 border-light-border_color dark:border-dark-border_color p-1 mt-48"

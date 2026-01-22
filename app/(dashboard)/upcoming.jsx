@@ -9,6 +9,7 @@ import {
 import React, { useEffect, useState } from "react";
 import { contestAPI } from "../../services/api";
 import { SafeAreaView } from "react-native-safe-area-context";
+import LoadingScreen from "../../components/loadingScreen";
 
 const Upcoming = () => {
     const [contests, setContests] = useState([]);
@@ -50,11 +51,7 @@ const Upcoming = () => {
     };
 
     if (loading) {
-        return (
-            <SafeAreaView className="flex-1 justify-center items-center">
-                <ActivityIndicator size="large" color="#0000ff" />
-            </SafeAreaView>
-        );
+        return <LoadingScreen message="Fetching Upcoming Contests..." />;
     }
 
     return (

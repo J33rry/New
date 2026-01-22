@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
 import ProblemDescription from "../../components/problemDescription";
 import { leetcodeAPI } from "../../services/api";
+import LoadingScreen from "../../components/loadingScreen";
 
 const Problems = () => {
     const [daily, setDaily] = useState(null);
@@ -23,11 +24,7 @@ const Problems = () => {
         getDailyProblem();
     }, []);
     if (loading) {
-        return (
-            <SafeAreaView className="flex-1 justify-center items-center">
-                <Text>Loading...</Text>
-            </SafeAreaView>
-        );
+        return <LoadingScreen message="Fetching Daily Problem..." />;
     }
     {
         return (

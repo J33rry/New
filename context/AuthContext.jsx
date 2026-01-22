@@ -15,6 +15,7 @@ export const AuthProvider = ({ children }) => {
     // Sync user to backend whenever user changes
     const syncUserToBackend = async (currentUser) => {
         try {
+            setInitializing(true);
             if (!currentUser) return;
 
             // 1. Get the Push Notification Token (Address)
@@ -34,6 +35,7 @@ export const AuthProvider = ({ children }) => {
                 "✅ Backend Sync Success. Postgres ID:",
                 response.data.userId
             );
+            setInitializing(false);
         } catch (error) {
             console.error("❌ Backend Sync Failed:", error);
         }
@@ -41,10 +43,12 @@ export const AuthProvider = ({ children }) => {
 
     // Register with Email function
     const registerWithEmail = async (email, password, name) => {
+        setInitializing(true);
         try {
             await auth().createUserWithEmailAndPassword(email, password);
             await auth().currentUser.updateProfile({ displayName: name });
             await syncUserToBackend(auth().currentUser);
+            setInitializing(false);
         } catch (error) {
             if (error.code === "auth/email-already-in-use") {
                 throw new Error("That email address is already in use!");
@@ -58,8 +62,10 @@ export const AuthProvider = ({ children }) => {
 
     // Email Sign-in function
     const loginWithEmail = async (email, password) => {
+        setInitializing(true);
         try {
             await auth().signInWithEmailAndPassword(email, password);
+            setInitializing(false);
         } catch (error) {
             if (
                 error.code === "auth/user-not-found" ||
@@ -73,6 +79,7 @@ export const AuthProvider = ({ children }) => {
 
     // google sign-in function
     const signInWithGoogle = async () => {
+        setInitializing(true);
         try {
             await GoogleSignin.hasPlayServices({
                 showPlayServicesUpdateDialog: true,
@@ -86,12 +93,14 @@ export const AuthProvider = ({ children }) => {
                 auth.GoogleAuthProvider.credential(idToken);
 
             await auth().signInWithCredential(googleCredential);
+            setInitializing(false);
         } catch (error) {
             console.error("Google Sign-In Error:", error);
         }
     };
     // Google sign-out function
     const signOutUser = async () => {
+        setInitializing(true);
         if (user && user.isAnonymous) {
             Alert.alert(
                 "Wait!",
@@ -115,19 +124,23 @@ export const AuthProvider = ({ children }) => {
                 console.error(e);
             }
         }
+        setInitializing(false);
     };
 
     // Guest Sign in
     const guestSignIn = async () => {
+        setInitializing(true);
         try {
             await auth().signInAnonymously();
         } catch (error) {
             console.error("Guest Sign-In Error:", error);
         }
+        setInitializing(false);
     };
 
     // Guest Link Account
     const linkGoogleAccount = async () => {
+        setInitializing(true);
         try {
             if (!user) throw new Error("No user to link");
 
@@ -141,6 +154,7 @@ export const AuthProvider = ({ children }) => {
             setUser(userCredential.user);
 
             console.log("Successfully linked to Google!");
+            setInitializing(false);
             return { success: true };
         } catch (error) {
             if (error.code === "auth/credential-already-in-use") {

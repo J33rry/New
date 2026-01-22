@@ -2,11 +2,11 @@ import auth from "@react-native-firebase/auth";
 import messaging from "@react-native-firebase/messaging";
 
 export const getAuthToken = async () => {
-    const user = auth().currentUser;
     try {
-        if (user) {
-            return user.getIdToken();
-        }
+        const user = auth().currentUser;
+        if (!user) return null;
+        const token = await user.getIdToken();
+        return token || null;
     } catch (error) {
         console.error("Error getting auth token:", error);
         return null;

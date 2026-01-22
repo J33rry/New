@@ -6,13 +6,14 @@ import {
     TouchableOpacity,
     Modal,
     ActivityIndicator,
+    KeyboardAvoidingView,
 } from "react-native";
 import auth from "@react-native-firebase/auth"; // <--- CHANGED IMPORT
 
 const ForgotPasswordModal = ({ isVisible, onClose }) => {
     const [email, setEmail] = useState("");
     const [loading, setLoading] = useState(false);
-    const [status, setStatus] = useState(null); // { type: 'error' | 'success', text: string }
+    const [status, setStatus] = useState(null);
 
     const handleReset = async () => {
         setLoading(true);
@@ -47,14 +48,17 @@ const ForgotPasswordModal = ({ isVisible, onClose }) => {
     return (
         <Modal visible={isVisible} animationType="slide" transparent>
             {/* ... (Rest of your UI code remains exactly the same) ... */}
-            <View className="flex-1 justify-end bg-black/50">
-                <View className="bg-white rounded-t-3xl p-6">
-                    <Text className="text-xl font-bold mb-4">
+            <KeyboardAvoidingView
+                behavior="padding"
+                className="flex-1 justify-end bg-black/50"
+            >
+                <View className="bg-light-surface dark:bg-dark-surface rounded-t-3xl p-6">
+                    <Text className="text-xl text-light-text_main dark:text-dark-text_main font-bold mb-4">
                         Reset Password
                     </Text>
 
                     <TextInput
-                        className="bg-slate-100 p-4 rounded-xl mb-4"
+                        className="bg-light-surface dark:bg-dark-surface p-4 rounded-xl mb-4 border-b-2 border-light-border_color dark:border-dark-border_color text-light-text_main dark:text-dark-text_main"
                         placeholder="Enter your email"
                         value={email}
                         onChangeText={setEmail}
@@ -88,12 +92,14 @@ const ForgotPasswordModal = ({ isVisible, onClose }) => {
 
                     <TouchableOpacity
                         onPress={onClose}
-                        className="mt-4 items-center"
+                        className="mt-4 items-center bg-light-text_sub dark:bg-dark-text_sub p-3 rounded-xl"
                     >
-                        <Text className="text-slate-500">Cancel</Text>
+                        <Text className="text-light-text_main dark:text-dark-text_main font-bold">
+                            Cancel
+                        </Text>
                     </TouchableOpacity>
                 </View>
-            </View>
+            </KeyboardAvoidingView>
         </Modal>
     );
 };

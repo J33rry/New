@@ -10,9 +10,10 @@ import InlineTimePicker from "../../components/timePicker";
 import { useRouter } from "expo-router";
 import UserSignOut from "../../components/signOutUser";
 import GuestLink from "../../components/guestLink";
+import LoadingScreen from "../../components/loadingScreen";
 
 const CompleteProfile = () => {
-    const { userDetails, setUserDetails } = useAuth();
+    const { userDetails, setUserDetails, initializing } = useAuth();
     const [leetcodeUser, setLeetcodeUser] = useState("");
     const [codeforcesUser, setCodeforcesUser] = useState("");
     const [userName, setUserName] = useState("");
@@ -89,12 +90,10 @@ const CompleteProfile = () => {
         }
     };
     if (loading) {
-        return (
-            <SafeAreaView className="flex-1 justify-center items-center">
-                <ActivityIndicator size="large" />
-                <Text>Loading...</Text>
-            </SafeAreaView>
-        );
+        return <LoadingScreen message="Updating your profile..." />;
+    }
+    if (initializing) {
+        return <LoadingScreen message="Signing Out..." />;
     }
 
     return (
