@@ -33,7 +33,7 @@ export const AuthProvider = ({ children }) => {
             });
             console.log(
                 "✅ Backend Sync Success. Postgres ID:",
-                response.data.userId
+                response.data.userId,
             );
             setInitializing(false);
         } catch (error) {
@@ -114,7 +114,7 @@ export const AuthProvider = ({ children }) => {
                             await auth().signOut();
                         },
                     },
-                ]
+                ],
             );
         } else {
             try {
@@ -160,7 +160,7 @@ export const AuthProvider = ({ children }) => {
             if (error.code === "auth/credential-already-in-use") {
                 Alert.alert(
                     "Linking Error",
-                    "This Google account is already linked with another user."
+                    "This Google account is already linked with another user.",
                 );
                 return { success: false, error: "credential-already-in-use" };
             }
