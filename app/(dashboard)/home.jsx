@@ -1,6 +1,5 @@
 import { useEffect, useMemo, useState } from "react"; // <--- Import useEffect
 import {
-    ActivityIndicator,
     Dimensions,
     Image,
     ScrollView,

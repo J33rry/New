@@ -5,10 +5,10 @@
         "slug": "cozer",
         "version": "1.0.0",
         "orientation": "portrait",
-        "icon": "./assets/icon.png",
+        "icon": "./assets/logo.png",
         "newArchEnabled": true,
         "splash": {
-            "image": "./assets/splash-icon.png",
+            "image": "./assets/logo.png",
             "resizeMode": "contain",
             "backgroundColor": "#0B1222"
         },
@@ -19,7 +19,7 @@
         },
         "android": {
             "adaptiveIcon": {
-                "foregroundImage": "./assets/adaptive-icon.png",
+                "foregroundImage": "./assets/logo.png",
                 "backgroundColor": "#ffffff"
             },
             "edgeToEdgeEnabled": true,
@@ -44,6 +44,12 @@
                     }
                 }
             ]
-        ]
+        ],
+        "extra": {
+            "router": {},
+            "eas": {
+                "projectId": "c5141b65-2095-413d-a9d8-302f82e45220"
+            }
+        }
     }
 }

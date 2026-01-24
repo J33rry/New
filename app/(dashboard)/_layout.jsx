@@ -1,5 +1,4 @@
 import { Tabs, Redirect } from "expo-router";
-import { View, Text, ActivityIndicator } from "react-native";
 import { useAuth } from "../../context/AuthContext.jsx";
 import MultiToggleSwitch from "../../components/multiSwitch.jsx";
 import { SafeAreaView } from "react-native-safe-area-context";

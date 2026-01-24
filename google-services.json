@@ -1,0 +1,54 @@
+{
+  "project_info": {
+    "project_number": "771457794896",
+    "project_id": "cozer-a8cbd",
+    "storage_bucket": "cozer-a8cbd.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:771457794896:android:90b988c7faa185fc6e2255",
+        "android_client_info": {
+          "package_name": "com.cozer"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "771457794896-dr7i91bjm3a0jgvhfna22acr46o7lr27.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.cozer",
+            "certificate_hash": "5e8f16062ea3cd2c4a0d547876baa6f38cabf625"
+          }
+        },
+        {
+          "client_id": "771457794896-h13mi5o8l9la6jk7l7u7vronb07ohi6a.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCTE2ko8z371mFWA6RdInT2ruWZPxo2Cg4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "771457794896-dg5f1scffp3flhte53bsmbtfmp549fl5.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "771457794896-j0c95ml5vj2e61tmgn1st3gfac68300o.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.cozer"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

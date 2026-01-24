@@ -1,5 +1,5 @@
 import { View, Text, TextInput, Pressable, Image } from "react-native";
-import React, { useState } from "react";
+import { useState } from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { authAPI } from "../../services/api";
 import { useAuth } from "../../context/AuthContext";
@@ -23,10 +23,10 @@ const CompleteProfile = () => {
     const userData = userDetails.profile ? userDetails.profile : userDetails;
 
     const [dailyNotifications, setDailyNotifications] = useState(
-        userData.daily_notifications
+        userData.daily_notifications,
     );
     const [contestNotifications, setContestNotifications] = useState(
-        userData.contest_notifications
+        userData.contest_notifications,
     );
     const [loading, setLoading] = useState(false);
 
@@ -45,7 +45,7 @@ const CompleteProfile = () => {
     };
 
     const [notificationTime, setNotificationTime] = useState(
-        parseTime(userData.daily_time)
+        parseTime(userData.daily_time),
     );
     const getProfileData = async () => {
         setLoading(true);

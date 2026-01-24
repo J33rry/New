@@ -1,9 +1,10 @@
 import axios from "axios";
 import { getAuthToken } from "../utils/firebaseToken";
 
+const URL = process.env.EXPO_PUBLIC_BACKEND_URL;
+
 const api = axios.create({
-    // baseURL: "http://172.20.10.5:6000",
-    baseURL: "https://cozer-b0fnh3hvbbf2fgez.eastasia-01.azurewebsites.net",
+    baseURL: URL,
     timeout: 30000,
     headers: {
         "Content-Type": "application/json",
@@ -20,7 +21,6 @@ api.interceptors.request.use(
                 delete config.headers.Authorization;
             }
         } catch (error) {
-            // If token lookup fails (e.g., after logout), fall back gracefully
             delete config.headers.Authorization;
         }
         return config;

@@ -1,10 +1,10 @@
-import { Alert, Linking, StyleSheet, Text, View } from "react-native";
+import { Alert, Linking } from "react-native";
 import "./global.css";
 import { useEffect } from "react";
 import messaging from "@react-native-firebase/messaging";
 import * as Notifications from "expo-notifications";
 import { Redirect } from "expo-router";
-import { getMessagingToken } from "../utils/firebaseToken";
+
 
 export default function Page() {
     useEffect(() => {

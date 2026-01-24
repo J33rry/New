@@ -1,11 +1,4 @@
-import {
-    View,
-    Text,
-    FlatList,
-    ActivityIndicator,
-    Linking,
-    Pressable,
-} from "react-native";
+import { View, Text, FlatList } from "react-native";
 import React, { useEffect, useState } from "react";
 import { contestAPI } from "../../services/api";
 import { SafeAreaView } from "react-native-safe-area-context";
